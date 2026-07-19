@@ -42,8 +42,7 @@ a { color: inherit; }
 h1 { max-width: 680px; margin: 0; font: 700 clamp(4.6rem, 8vw, 7.5rem)/.83 var(--display); letter-spacing: -.065em; }
 .hero-copy { max-width: 440px; margin: 2rem 0 2.2rem; color: var(--cream); font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.65; }
 .hero-cta { display: inline-flex; align-items: center; gap: 1.2rem; text-decoration: none; font-weight: 600; }
-.cta-icon { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--ochre); transition: transform .2s; }
-.hero-cta:hover .cta-icon { transform: rotate(45deg); }
+.cta-icon { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--ochre); }
 
 main { background: var(--paper); }
 .menu-intro { width: min(1180px, calc(100% - 3rem)); margin: auto; padding: 7rem 0 3rem; display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 2rem; }
