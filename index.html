@@ -12,12 +12,6 @@
     <link rel="icon" href="assets/house-mark.svg" type="image/svg+xml" />
     <link
       rel="icon"
-      href="assets/house-mark.svg"
-      type="image/svg+xml"
-      media="(prefers-color-scheme: light)"
-    />
-    <link
-      rel="icon"
       href="assets/house-mark-white.svg"
       type="image/svg+xml"
       media="(prefers-color-scheme: dark)"
@@ -53,9 +47,7 @@
 
     <main id="menu">
       <section class="menu-intro" aria-labelledby="menu-title">
-        <div>
-          <h2 id="menu-title">Nuestro menú</h2>
-        </div>
+        <h2 id="menu-title">Nuestro menú</h2>
         <p class="intro-copy">
           Elige una categoría o busca ese antojo que ya tienes en mente.
         </p>
@@ -69,17 +61,16 @@
           </svg>
           <label class="sr-only" for="menu-search">Buscar en el menú</label>
           <input id="menu-search" type="search" placeholder="Buscar en el menú" autocomplete="off" />
-          <button class="clear-search" type="button" aria-label="Limpiar búsqueda">×</button>
         </div>
 
         <div class="category-picker">
-          <button class="category-arrow category-arrow--left" type="button" aria-label="Ver categorías anteriores" aria-controls="category-nav">
+          <button class="category-arrow category-arrow--left" type="button" aria-label="Ver categorías anteriores" aria-controls="category-nav" hidden>
             <svg aria-hidden="true" viewBox="0 0 16 16">
               <path d="m10 3-5 5 5 5"></path>
             </svg>
           </button>
           <nav class="category-nav" id="category-nav" aria-label="Categorías del menú">
-            <a class="category-pill active" href="#desayunos">Desayunos y antojos salados</a>
+            <a class="category-pill active" href="#desayunos" aria-current="location">Desayunos y antojos salados</a>
             <a class="category-pill" href="#dulces">Antojos dulces</a>
             <a class="category-pill" href="#calientes-cafe">Bebidas calientes con café</a>
             <a class="category-pill" href="#frias-cafe">Bebidas frías con café</a>
@@ -88,7 +79,7 @@
             <a class="category-pill" href="#frias-sin-cafe">Bebidas frías sin café</a>
             <a class="category-pill" href="#sodas">Sodas</a>
           </nav>
-          <button class="category-arrow category-arrow--right" type="button" aria-label="Ver más categorías" aria-controls="category-nav">
+          <button class="category-arrow category-arrow--right" type="button" aria-label="Ver más categorías" aria-controls="category-nav" hidden>
             <svg aria-hidden="true" viewBox="0 0 16 16">
               <path d="m6 3 5 5-5 5"></path>
             </svg>
@@ -97,7 +88,7 @@
       </div>
 
       <div class="menu-sections">
-        <section class="menu-section" id="desayunos" data-category="Desayunos y antojos salados">
+        <section class="menu-section" id="desayunos">
           <header class="section-heading">
             <h3>Desayunos y antojos salados</h3>
           </header>
@@ -111,7 +102,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="dulces" data-category="Antojos dulces">
+        <section class="menu-section" id="dulces">
           <header class="section-heading"><h3>Antojos dulces</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Croissant de almendras</h4></div><span class="price">$13.000</span></article>
@@ -120,7 +111,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="calientes-cafe" data-category="Bebidas calientes con café">
+        <section class="menu-section" id="calientes-cafe">
           <header class="section-heading"><h3>Bebidas calientes con café</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Espresso doppio</h4></div><span class="price">$7.500</span></article>
@@ -133,7 +124,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="frias-cafe" data-category="Bebidas frías con café">
+        <section class="menu-section" id="frias-cafe">
           <header class="section-heading"><h3>Bebidas frías con café</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Cold brew</h4></div><span class="price">$12.000</span></article>
@@ -147,7 +138,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="filtrados" data-category="Café filtrado">
+        <section class="menu-section" id="filtrados">
           <header class="section-heading"><h3>Café filtrado</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Filtrado blend Antioquia</h4><p>2 tazas</p></div><span class="price">$13.000</span></article>
@@ -155,7 +146,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="calientes-sin-cafe" data-category="Bebidas calientes sin café">
+        <section class="menu-section" id="calientes-sin-cafe">
           <header class="section-heading"><h3>Bebidas calientes sin café</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Chai latte</h4><p>Pink chai</p></div><span class="price">$12.000</span></article>
@@ -167,7 +158,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="frias-sin-cafe" data-category="Bebidas frías sin café">
+        <section class="menu-section" id="frias-sin-cafe">
           <header class="section-heading"><h3>Bebidas frías sin café</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Frappé chai</h4><p>Pink</p></div><span class="price">$13.000</span></article>
@@ -178,7 +169,7 @@
           </div>
         </section>
 
-        <section class="menu-section" id="sodas" data-category="Sodas">
+        <section class="menu-section" id="sodas">
           <header class="section-heading"><h3>Sodas</h3></header>
           <div class="items-grid">
             <article class="menu-item"><div><h4>Soda de frutos rojos</h4></div><span class="price">$12.000</span></article>
@@ -191,7 +182,7 @@
         </section>
       </div>
 
-      <p class="empty-state" role="status">No encontramos nada con esa búsqueda. Prueba con otra palabra.</p>
+      <p class="empty-state" role="status" hidden>No encontramos nada con esa búsqueda. Prueba con otra palabra.</p>
     </main>
 
     <footer>
@@ -199,6 +190,6 @@
       <p>Qué bueno tenerte en casa</p>
     </footer>
 
-    <a class="back-to-top" href="#top" aria-label="Volver arriba">↑</a>
+    <a class="back-to-top" href="#top" aria-label="Volver arriba" hidden>↑</a>
   </body>
 </html>
