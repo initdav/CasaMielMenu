@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
-
 @font-face {
   font-family: "Astonpoliz";
   src: url("assets/fonts/Astonpoliz.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
 }
 
 :root {
