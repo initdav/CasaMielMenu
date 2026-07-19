@@ -90,9 +90,24 @@ function renderMenu(categories) {
 function initializeMenuInteractions() {
   const sections = [...document.querySelectorAll('.menu-section')];
   const pills = [...document.querySelectorAll('.category-pill')];
+  const mobileCategoryPicker = window.matchMedia('(max-width: 720px)');
+
+  function focusActiveCategory(activePill) {
+    if (!mobileCategoryPicker.matches) return;
+
+    const maxScrollLeft = categoryNav.scrollWidth - categoryNav.clientWidth;
+    const centeredScrollLeft = activePill.offsetLeft -
+      (categoryNav.clientWidth - activePill.offsetWidth) / 2;
+
+    categoryNav.scrollTo({
+      left: Math.max(0, Math.min(centeredScrollLeft, maxScrollLeft)),
+    });
+  }
 
   function setActiveCategory(activePill) {
     if (!activePill) return;
+
+    const categoryChanged = !activePill.classList.contains('active');
 
     pills.forEach((pill) => {
       const isActive = pill === activePill;
@@ -100,6 +115,8 @@ function initializeMenuInteractions() {
       if (isActive) pill.setAttribute('aria-current', 'location');
       else pill.removeAttribute('aria-current');
     });
+
+    if (categoryChanged) focusActiveCategory(activePill);
   }
 
   function updateActiveCategory() {
