@@ -90,11 +90,8 @@ function renderMenu(categories) {
 function initializeMenuInteractions() {
   const sections = [...document.querySelectorAll('.menu-section')];
   const pills = [...document.querySelectorAll('.category-pill')];
-  const mobileCategoryPicker = window.matchMedia('(max-width: 720px)');
 
   function focusActiveCategory(activePill) {
-    if (!mobileCategoryPicker.matches) return;
-
     const maxScrollLeft = categoryNav.scrollWidth - categoryNav.clientWidth;
     const centeredScrollLeft = activePill.offsetLeft -
       (categoryNav.clientWidth - activePill.offsetWidth) / 2;
