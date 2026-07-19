@@ -11,6 +11,12 @@ const categoryNav = document.querySelector('.category-nav');
 const categoryArrowLeft = document.querySelector('.category-arrow--left');
 const categoryArrowRight = document.querySelector('.category-arrow--right');
 
+const titleConnectors = /\b(y|e|o|u|ni|de|del|al|con|sin|para|por|te)\s+/gi;
+
+document.querySelectorAll('h1, h2, h3, h4').forEach((title) => {
+  title.textContent = title.textContent.replace(titleConnectors, '$1\u00a0');
+});
+
 if ('scrollRestoration' in history) {
   history.scrollRestoration = window.location.hash ? 'manual' : 'auto';
 }
@@ -32,7 +38,7 @@ function alignHashTarget() {
 }
 
 const normalize = (value) =>
-  value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 
 function filterMenu() {
   const term = normalize(searchInput.value);
