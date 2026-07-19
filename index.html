@@ -30,6 +30,7 @@
       media="(prefers-color-scheme: dark)"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="menu-data.js" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -73,7 +74,7 @@
             <path d="m16 16 4 4"></path>
           </svg>
           <label class="sr-only" for="menu-search">Buscar en el menú</label>
-          <input id="menu-search" type="search" placeholder="Buscar en el menú" autocomplete="off" />
+          <input id="menu-search" type="search" placeholder="Buscar por nombre, ingrediente o antojo" autocomplete="off" />
         </div>
 
         <div class="category-picker">
@@ -82,16 +83,7 @@
               <path d="m10 3-5 5 5 5"></path>
             </svg>
           </button>
-          <nav class="category-nav" id="category-nav" aria-label="Categorías del menú">
-            <a class="category-pill active" href="#desayunos" aria-current="location">Desayunos y antojos salados</a>
-            <a class="category-pill" href="#dulces">Antojos dulces</a>
-            <a class="category-pill" href="#calientes-cafe">Bebidas calientes con café</a>
-            <a class="category-pill" href="#frias-cafe">Bebidas frías con café</a>
-            <a class="category-pill" href="#filtrados">Café filtrado</a>
-            <a class="category-pill" href="#calientes-sin-cafe">Bebidas calientes sin café</a>
-            <a class="category-pill" href="#frias-sin-cafe">Bebidas frías sin café</a>
-            <a class="category-pill" href="#sodas">Sodas</a>
-          </nav>
+          <nav class="category-nav" id="category-nav" aria-label="Categorías del menú"></nav>
           <button class="category-arrow category-arrow--right" type="button" aria-label="Ver más categorías" aria-controls="category-nav" hidden>
             <svg aria-hidden="true" viewBox="0 0 16 16">
               <path d="m6 3 5 5-5 5"></path>
@@ -100,100 +92,7 @@
         </div>
       </div>
 
-      <div class="menu-sections">
-        <section class="menu-section" id="desayunos">
-          <header class="section-heading">
-            <h3>Desayunos y antojos salados</h3>
-          </header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Desayuno Casa Miel</h4><p>Pan de masa madre, huevo, queso y tocineta.</p></div><span class="price">$20.000</span></article>
-            <article class="menu-item"><div><h4>Empanada de pollo</h4></div><span class="price">$10.500</span></article>
-            <article class="menu-item"><div><h4>Empanada caprese</h4></div><span class="price">$10.500</span></article>
-            <article class="menu-item"><div><h4>Muffin de chocolo</h4></div><span class="price">$10.500</span></article>
-            <article class="menu-item"><div><h4>Croissant de mantequilla</h4></div><span class="price">$8.000</span></article>
-            <article class="menu-item"><div><h4>Palito de queso</h4></div><span class="price">$9.000</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="dulces">
-          <header class="section-heading"><h3>Antojos dulces</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Croissant de almendras</h4></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Torta red velvet</h4></div><span class="price">$12.500</span></article>
-            <article class="menu-item"><div><h4>Torta de zanahoria</h4></div><span class="price">$12.500</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="calientes-cafe">
-          <header class="section-heading"><h3>Bebidas calientes con café</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Espresso doppio</h4></div><span class="price">$7.500</span></article>
-            <article class="menu-item"><div><h4>Cappuccino</h4></div><span class="price">$10.000</span></article>
-            <article class="menu-item"><div><h4>Mocaccino</h4></div><span class="price">$10.000</span></article>
-            <article class="menu-item"><div><h4>Americano</h4></div><span class="price">$8.000</span></article>
-            <article class="menu-item"><div><h4>Macchiato</h4></div><span class="price">$8.000</span></article>
-            <article class="menu-item"><div><h4>Flat white</h4></div><span class="price">$10.000</span></article>
-            <article class="menu-item"><div><h4>Latte</h4></div><span class="price">$10.000</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="frias-cafe">
-          <header class="section-heading"><h3>Bebidas frías con café</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Cold brew</h4></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Cold brew</h4><p>Frutos rojos</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Cold brew</h4><p>Naranja</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Aerocano</h4></div><span class="price">$8.000</span></article>
-            <article class="menu-item"><div><h4>Latte frío</h4></div><span class="price">$10.000</span></article>
-            <article class="menu-item"><div><h4>Latte de frutos rojos</h4></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Frappé de café</h4></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Affogato</h4></div><span class="price">$8.000</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="filtrados">
-          <header class="section-heading"><h3>Café filtrado</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Filtrado blend Antioquia</h4><p>2 tazas</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Filtrado chiroso</h4><p>2 tazas</p></div><span class="price">$15.000</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="calientes-sin-cafe">
-          <header class="section-heading"><h3>Bebidas calientes sin café</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Chai latte</h4><p>Pink chai</p></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Chai latte</h4><p>Blue chai</p></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Chai latte</h4><p>Tradicional</p></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Infusión Very Berry</h4></div><span class="price">$6.500</span></article>
-            <article class="menu-item"><div><h4>Infusión de frutos amarillos</h4></div><span class="price">$6.500</span></article>
-            <article class="menu-item"><div><h4>Milo caliente</h4></div><span class="price">$10.000</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="frias-sin-cafe">
-          <header class="section-heading"><h3>Bebidas frías sin café</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Frappé chai</h4><p>Pink</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Frappé chai</h4><p>Blue</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Frappé chai</h4><p>Black</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Frappé chai</h4><p>Tradicional</p></div><span class="price">$13.000</span></article>
-            <article class="menu-item"><div><h4>Milo frío</h4></div><span class="price">$12.000</span></article>
-          </div>
-        </section>
-
-        <section class="menu-section" id="sodas">
-          <header class="section-heading"><h3>Sodas</h3></header>
-          <div class="items-grid">
-            <article class="menu-item"><div><h4>Soda de frutos rojos</h4></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Soda de frutos amarillos</h4></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Michelada</h4></div><span class="price">$10.000</span></article>
-            <article class="menu-item"><div><h4>Soda chai</h4><p>Blue</p></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Soda chai</h4><p>Pink</p></div><span class="price">$12.000</span></article>
-            <article class="menu-item"><div><h4>Soda chai</h4><p>Black</p></div><span class="price">$12.000</span></article>
-          </div>
-        </section>
-      </div>
+      <div class="menu-sections"></div>
 
       <p class="empty-state" role="status" hidden>No encontramos nada con esa búsqueda. Prueba con otra palabra.</p>
     </main>
