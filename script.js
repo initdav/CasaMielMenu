@@ -213,5 +213,28 @@ function initializeMenuInteractions() {
   });
 }
 
-renderMenu(window.menuData.categories);
-initializeMenuInteractions();
+function ensureMenuData() {
+  if (window.menuData) return Promise.resolve();
+
+  return new Promise((resolve, reject) => {
+    const dataScript = document.createElement('script');
+    dataScript.src = 'menu-data.js?v=20260719-2';
+    dataScript.addEventListener('load', resolve, { once: true });
+    dataScript.addEventListener('error', reject, { once: true });
+    document.head.append(dataScript);
+  });
+}
+
+async function startMenu() {
+  try {
+    await ensureMenuData();
+    renderMenu(window.menuData.categories);
+    initializeMenuInteractions();
+  } catch (error) {
+    console.error('Could not load the menu data.', error);
+    emptyState.textContent = 'No pudimos cargar el menú. Intenta actualizar la página.';
+    emptyState.hidden = false;
+  }
+}
+
+startMenu();
