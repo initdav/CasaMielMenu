@@ -7,8 +7,19 @@ const categoryPicker = document.querySelector('.category-picker');
 const categoryNav = document.querySelector('.category-nav');
 const categoryArrowLeft = document.querySelector('.category-arrow--left');
 const categoryArrowRight = document.querySelector('.category-arrow--right');
+const printMenu = document.querySelector('.print-menu');
 
 const titleConnectors = /\b(y|e|o|u|ni|de|del|al|con|sin|para|por|te)\s+/gi;
+const printPageCategoryIds = [
+  [
+    ['desayunos', 'frias-sin-cafe'],
+    ['calientes-cafe', 'frias-cafe'],
+  ],
+  [
+    ['filtrados', 'calientes-sin-cafe'],
+    ['dulces', 'sodas'],
+  ],
+];
 
 const keepConnectorsTogether = (value) =>
   value.replace(titleConnectors, '$1\u00a0');
@@ -49,6 +60,68 @@ function createMenuItem(item) {
   return article;
 }
 
+function createMenuSection(category, { print = false } = {}) {
+  const section = document.createElement('section');
+  section.className = print ? 'print-menu-section' : 'menu-section';
+
+  if (print) section.dataset.printCategory = category.id;
+  else section.id = category.id;
+
+  const heading = document.createElement('header');
+  heading.className = 'section-heading';
+  const title = document.createElement('h3');
+  title.textContent = keepConnectorsTogether(category.name);
+  heading.append(title);
+
+  const items = document.createElement('div');
+  items.className = 'items-grid';
+  category.items.forEach((item) => items.append(createMenuItem(item)));
+
+  section.append(heading, items);
+  return section;
+}
+
+function createPrintFooter() {
+  const footer = document.createElement('footer');
+  footer.className = 'print-page-footer';
+  const mark = document.createElement('img');
+  mark.src = 'assets/house-mark.svg';
+  mark.alt = '';
+  const message = document.createElement('p');
+  message.textContent = 'Qué bueno tenerte en casa';
+  footer.append(mark, message);
+  return footer;
+}
+
+function renderPrintMenu(categories) {
+  const categoriesById = new Map(categories.map((category) => [category.id, category]));
+  const fragment = document.createDocumentFragment();
+
+  printPageCategoryIds.forEach((columnIds, pageIndex) => {
+    const page = document.createElement('section');
+    page.className = 'print-page';
+    page.dataset.printPage = pageIndex + 1;
+
+    const content = document.createElement('div');
+    content.className = 'print-page-content';
+
+    columnIds.forEach((categoryIds) => {
+      const column = document.createElement('div');
+      column.className = 'print-column';
+      categoryIds.forEach((categoryId) => {
+        const category = categoriesById.get(categoryId);
+        if (category) column.append(createMenuSection(category, { print: true }));
+      });
+      content.append(column);
+    });
+
+    page.append(content, createPrintFooter());
+    fragment.append(page);
+  });
+
+  printMenu.replaceChildren(fragment);
+}
+
 function renderMenu(categories) {
   const navFragment = document.createDocumentFragment();
   const sectionsFragment = document.createDocumentFragment();
@@ -61,26 +134,12 @@ function renderMenu(categories) {
     if (index === 0) pill.setAttribute('aria-current', 'location');
     navFragment.append(pill);
 
-    const section = document.createElement('section');
-    section.className = 'menu-section';
-    section.id = category.id;
-
-    const heading = document.createElement('header');
-    heading.className = 'section-heading';
-    const title = document.createElement('h3');
-    title.textContent = keepConnectorsTogether(category.name);
-    heading.append(title);
-
-    const items = document.createElement('div');
-    items.className = 'items-grid';
-    category.items.forEach((item) => items.append(createMenuItem(item)));
-
-    section.append(heading, items);
-    sectionsFragment.append(section);
+    sectionsFragment.append(createMenuSection(category));
   });
 
   categoryNav.replaceChildren(navFragment);
   menuSections.replaceChildren(sectionsFragment);
+  renderPrintMenu(categories);
 
   document.querySelectorAll('h1, h2').forEach((title) => {
     title.textContent = keepConnectorsTogether(title.textContent);
