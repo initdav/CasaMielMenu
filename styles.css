@@ -163,7 +163,7 @@ footer p { margin: 1rem 0 0; font: 600 clamp(2.2rem, 5vw, 4rem) var(--display); 
     padding: 15mm 15mm 4mm;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     gap: 0.6rem;
   }
 
