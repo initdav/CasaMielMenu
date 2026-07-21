@@ -125,6 +125,11 @@ test('keeps unique IDs on the interactive menu sections', () => {
   });
 });
 
+test('renders a centered header with house mark on each print page', () => {
+  assert.equal((pageHtml.match(/class="print-page-header"/g) || []).length, 2);
+  assert.equal((pageHtml.match(/class="print-page-header">\s*<img src="assets\/house-mark.svg"/g) || []).length, 2);
+});
+
 test('defines zero-margin Letter pages with in-flow footers', async () => {
   const css = await readFile(join(root, 'styles.css'), 'utf8');
 
