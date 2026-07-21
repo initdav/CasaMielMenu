@@ -159,10 +159,13 @@ function renderMenu(categories) {
 
   categories.forEach((category, index) => {
     const pill = document.createElement('a');
-    pill.className = `category-pill${index === 0 ? ' active' : ''}`;
+    pill.className = 'category-pill';
     pill.href = `#${category.id}`;
     pill.textContent = category.name;
-    if (index === 0) pill.setAttribute('aria-current', 'location');
+    if (index === 0) {
+      pill.classList.add('active');
+      pill.setAttribute('aria-current', 'location');
+    }
     navFragment.append(pill);
 
     sectionsFragment.append(createMenuSection(category));
@@ -171,17 +174,13 @@ function renderMenu(categories) {
   categoryNav.replaceChildren(navFragment);
   menuSections.replaceChildren(sectionsFragment);
   renderPrintMenu(categories);
-
-  document.querySelectorAll('h1, h2').forEach((title) => {
-    title.textContent = keepConnectorsTogether(title.textContent);
-  });
 }
 
 function initializeMenuInteractions() {
   const sections = [...document.querySelectorAll('.menu-section')];
   const pills = [...document.querySelectorAll('.category-pill')];
 
-  function focusActiveCategory(activePill) {
+  function centerActivePill(activePill) {
     const maxScrollLeft = categoryNav.scrollWidth - categoryNav.clientWidth;
     const centeredScrollLeft = activePill.offsetLeft -
       (categoryNav.clientWidth - activePill.offsetWidth) / 2;
@@ -203,7 +202,7 @@ function initializeMenuInteractions() {
       else pill.removeAttribute('aria-current');
     });
 
-    if (categoryChanged) focusActiveCategory(activePill);
+    if (categoryChanged) centerActivePill(activePill);
   }
 
   function updateActiveCategory() {
@@ -221,27 +220,30 @@ function initializeMenuInteractions() {
 
   function filterMenu() {
     const query = normalize(searchInput.value);
-    const terms = query.split(' ').filter(Boolean);
-    const allItems = sections.flatMap((section) =>
+    const terms = query ? query.split(' ') : [];
+    const itemsBySection = sections.map((section) =>
       [...section.querySelectorAll('.menu-item')]
     );
     const matchesPhrase = (item) =>
       item.searchEntries.some((entry) => ` ${entry} `.includes(` ${query} `));
-    const preferPhraseMatches = terms.length > 1 && allItems.some(matchesPhrase);
+    const matchesEveryTerm = (item) => {
+      const searchableWords = item.searchEntries.flatMap((entry) => entry.split(' '));
+      return terms.every((term) =>
+        searchableWords.some((word) => word === term ||
+          (term.length >= 3 && word.startsWith(term)))
+      );
+    };
+    // Multi-term searches prefer items matching the whole phrase, when any do.
+    const preferPhraseMatches = terms.length > 1 &&
+      itemsBySection.flat().some(matchesPhrase);
     let matches = 0;
 
-    sections.forEach((section) => {
-      const items = [...section.querySelectorAll('.menu-item')];
+    sections.forEach((section, index) => {
       let sectionMatches = 0;
 
-      items.forEach((item) => {
-        const searchableWords = item.searchEntries.flatMap((entry) => entry.split(' '));
-        const matchesEveryTerm = terms.every((term) =>
-          searchableWords.some((word) => word === term ||
-            (term.length >= 3 && word.startsWith(term)))
-        );
+      itemsBySection[index].forEach((item) => {
         const isMatch = terms.length === 0 ||
-          (preferPhraseMatches ? matchesPhrase(item) : matchesEveryTerm);
+          (preferPhraseMatches ? matchesPhrase(item) : matchesEveryTerm(item));
         item.hidden = !isMatch;
         if (isMatch) sectionMatches += 1;
       });
@@ -293,6 +295,10 @@ function initializeMenuInteractions() {
   categoryResizeObserver.observe(categoryNav);
   pills.forEach((pill) => categoryResizeObserver.observe(pill));
 
+  function updateBackToTop() {
+    backToTop.hidden = window.scrollY <= window.innerHeight;
+  }
+
   let scrollUpdateQueued = false;
   window.addEventListener('scroll', () => {
     if (scrollUpdateQueued) return;
@@ -300,7 +306,7 @@ function initializeMenuInteractions() {
 
     requestAnimationFrame(() => {
       updateActiveCategory();
-      backToTop.hidden = window.scrollY <= window.innerHeight;
+      updateBackToTop();
       scrollUpdateQueued = false;
     });
   }, { passive: true });
@@ -308,7 +314,7 @@ function initializeMenuInteractions() {
   window.addEventListener('pageshow', filterMenu);
   filterMenu();
   updateCategoryArrows();
-  backToTop.hidden = window.scrollY <= window.innerHeight;
+  updateBackToTop();
 
   document.fonts.ready.then(() => {
     requestAnimationFrame(() => {
@@ -317,22 +323,16 @@ function initializeMenuInteractions() {
   });
 }
 
-function ensureMenuData() {
-  if (window.menuData) return Promise.resolve();
-
-  return new Promise((resolve, reject) => {
-    const dataScript = document.createElement('script');
-    dataScript.src = 'menu-data.js?v=20260719-2';
-    dataScript.addEventListener('load', resolve, { once: true });
-    dataScript.addEventListener('error', reject, { once: true });
-    document.head.append(dataScript);
+function keepTitleConnectorsTogether() {
+  document.querySelectorAll('h1, h2').forEach((title) => {
+    title.textContent = keepConnectorsTogether(title.textContent);
   });
 }
 
-async function startMenu() {
+function startMenu() {
   try {
-    await ensureMenuData();
     renderMenu(window.menuData.categories);
+    keepTitleConnectorsTogether();
     initializeMenuInteractions();
   } catch (error) {
     console.error('Could not load the menu data.', error);

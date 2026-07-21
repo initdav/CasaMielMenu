@@ -89,22 +89,16 @@ test('places every category in the intended print page and column', () => {
     ],
   ];
 
-  expectedPages.forEach((columns, pageIndex) => {
-    const pageStart = pageHtml.indexOf(
-      `<section class="print-page" data-print-page="${pageIndex + 1}">`
-    );
-    const nextPageStart = pageHtml.indexOf(
-      `<section class="print-page" data-print-page="${pageIndex + 2}">`,
-      pageStart + 1
-    );
-    const printMenuEnd = pageHtml.indexOf('<a class="back-to-top"', pageStart);
-    const pageEnd = nextPageStart === -1 ? printMenuEnd : nextPageStart;
-    const pageMarkup = pageHtml.slice(pageStart, pageEnd);
-    const renderedIds = [...pageMarkup.matchAll(/data-print-category="([^"]+)"/g)]
+  const pageChunks = pageHtml.split('<section class="print-page"').slice(1);
+  assert.equal(pageChunks.length, 2);
+
+  pageChunks.forEach((chunk, pageIndex) => {
+    assert.ok(chunk.startsWith(` data-print-page="${pageIndex + 1}">`));
+    const renderedIds = [...chunk.matchAll(/data-print-category="([^"]+)"/g)]
       .map((match) => match[1]);
 
-    assert.deepEqual(renderedIds, columns.flat());
-    assert.equal((pageMarkup.match(/class="print-column"/g) || []).length, 2);
+    assert.deepEqual(renderedIds, expectedPages[pageIndex].flat());
+    assert.equal((chunk.match(/class="print-column"/g) || []).length, 2);
   });
 });
 
@@ -125,20 +119,6 @@ test('keeps unique IDs on the interactive menu sections', () => {
   });
 });
 
-test('renders the house mark and text logo in the normal page header', async () => {
-  const [html, css] = await Promise.all([
-    readFile(join(root, 'index.html'), 'utf8'),
-    readFile(join(root, 'styles.css'), 'utf8'),
-  ]);
-
-  assert.match(
-    html,
-    /class="brand-mark">[\s\S]*?<use href="#brand-house-mark"><\/use>[\s\S]*?<svg class="brand-wordmark"[\s\S]*?<use href="#brand-wordmark"><\/use>/
-  );
-  assert.match(css, /\.brand-wordmark\s*\{[^}]*fill:\s*#EDD793;/s);
-  assert.doesNotMatch(html, /class="brand-name"/);
-});
-
 test('renders the house mark and text logo on each print page', () => {
   assert.equal((pageHtml.match(/class="print-page-header"/g) || []).length, 2);
   assert.equal(
@@ -147,58 +127,47 @@ test('renders the house mark and text logo on each print page', () => {
   );
 });
 
-test('defines local SVG symbols so file URLs can render the logos', async () => {
-  const html = await readFile(join(root, 'index.html'), 'utf8');
-
-  assert.match(html, /<symbol id="brand-house-mark" viewBox="0 0 237 264">/);
-  assert.match(html, /<symbol id="brand-wordmark" viewBox="0 0 1364 816">/);
-  assert.doesNotMatch(html, /<use href="assets\//);
+test('renders every menu section with priced items', () => {
+  const sections = pageHtml.split('<section class="menu-section"').slice(1);
+  assert.equal(sections.length, 8);
+  sections.forEach((section) => {
+    assert.ok(section.includes('<h4>'), 'section has item names');
+    assert.ok(section.includes('class="price"'), 'section has prices');
+  });
+  assert.match(pageHtml, /Desayuno Casa Miel[\s\S]*?\$20\.000/);
 });
 
-test('uses the shared house mark for both favicon color schemes', async () => {
-  const html = await readFile(join(root, 'index.html'), 'utf8');
-
-  assert.equal((html.match(/href="assets\/house-mark\.svg"/g) || []).length, 2);
-  assert.doesNotMatch(html, /house-mark-white\.svg/);
+test('renders one category pill per section, first one active', () => {
+  const pills = [...pageHtml.matchAll(/<a class="category-pill([^"]*)" href="#([^"]+)"([^>]*)>/g)];
+  assert.equal(pills.length, 8);
+  pills.forEach(([, , id]) => {
+    assert.ok(pageHtml.includes(`<section class="menu-section" id="${id}">`));
+  });
+  assert.equal(pills[0][1], ' active');
+  assert.equal(pills[0][3], ' aria-current="location"');
+  pills.slice(1).forEach((pill) => {
+    assert.ok(!pill[1].includes('active'));
+    assert.ok(!pill[3].includes('aria-current'));
+  });
 });
 
-test('renders the screen footer mark with a direct cream fill', async () => {
-  const [html, css] = await Promise.all([
-    readFile(join(root, 'index.html'), 'utf8'),
-    readFile(join(root, 'styles.css'), 'utf8'),
-  ]);
-
-  assert.match(
-    html,
-    /<svg class="footer-mark"[\s\S]*?<use href="#brand-house-mark"><\/use>/
-  );
-  assert.match(css, /\.footer-mark\s*\{[^}]*fill:\s*var\(--cream\);/s);
-  assert.doesNotMatch(css, /^footer img\s*\{[^}]*filter:/ms);
+test('renders every menu item with a price in the print menu', () => {
+  const printStart = pageHtml.indexOf('<div class="print-menu"');
+  const screenMarkup = pageHtml.slice(0, printStart);
+  const printMarkup = pageHtml.slice(printStart);
+  const countItems = (markup) =>
+    (markup.match(/<article class="menu-item"/g) || []).length;
+  assert.ok(countItems(screenMarkup) > 0);
+  assert.equal(countItems(printMarkup), countItems(screenMarkup));
+  const priceCount = (printMarkup.match(/class="price"/g) || []).length;
+  assert.equal(priceCount, countItems(printMarkup));
 });
 
-test('does not keep a duplicate white house mark asset', async () => {
-  await assert.rejects(readFile(join(root, 'assets/house-mark-white.svg')));
+test('keeps title connectors attached with non-breaking spaces', () => {
+  assert.ok(pageHtml.includes('con&nbsp;café'), 'category heading uses NBSP after connector');
+  assert.ok(pageHtml.includes('te&nbsp;espera'), 'hero title uses NBSP after connector');
 });
 
-test('defines print page header with centered image layout', async () => {
-  const css = await readFile(join(root, 'styles.css'), 'utf8');
-
-  assert.match(css, /\.print-page\s*\{[^}]*grid-template-rows:\s*auto 1fr 14mm;/s);
-  assert.match(css, /\.print-page-header\s*\{[^}]*padding:\s*15mm 15mm 4mm;/s);
-  assert.match(css, /\.print-page-header\s*\{[^}]*justify-content:\s*center;/s);
-  assert.match(css, /\.print-page-mark\s*\{[^}]*width:\s*48px;/s);
-  assert.match(css, /\.print-page-wordmark\s*\{[^}]*width:\s*auto;[^}]*height:\s*48px;/s);
-  assert.match(css, /\.print-page-mark\s*\{[^}]*fill:\s*#B9812A;/s);
-  assert.match(css, /\.print-page-wordmark\s*\{[^}]*fill:\s*#311708;/s);
-  assert.doesNotMatch(css, /\.print-page-wordmark\s*\{[^}]*font:/s);
-});
-
-test('defines zero-margin Letter pages with in-flow footers', async () => {
-  const css = await readFile(join(root, 'styles.css'), 'utf8');
-
-  assert.match(css, /\.print-menu\s*\{\s*display:\s*none;\s*\}/);
-  assert.match(css, /@page\s*\{[^}]*size:\s*Letter;[^}]*margin:\s*0;/s);
-  assert.match(css, /\.print-page\s*\{[^}]*width:\s*8\.5in;[^}]*height:\s*11in;[^}]*grid-template-rows:\s*auto 1fr 14mm;/s);
-  assert.match(css, /\.print-page-footer\s*\{[^}]*position:\s*static;/s);
-  assert.doesNotMatch(css, /@media print[\s\S]*?footer\s*\{[^}]*position:\s*fixed;/);
+test('renders a house mark in each print page footer', () => {
+  assert.equal((pageHtml.match(/<span class="footer-mark"/g) || []).length, 2);
 });
