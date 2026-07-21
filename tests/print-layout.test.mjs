@@ -130,12 +130,21 @@ test('renders a centered header with house mark on each print page', () => {
   assert.equal((pageHtml.match(/class="print-page-header">\s*<img src="assets\/house-mark.svg"/g) || []).length, 2);
 });
 
+test('defines print page header with centered layout', async () => {
+  const css = await readFile(join(root, 'styles.css'), 'utf8');
+
+  assert.match(css, /\.print-page\s*\{[^}]*grid-template-rows:\s*auto 1fr 14mm;/s);
+  assert.match(css, /\.print-page-header\s*\{[^}]*padding:\s*15mm 15mm 4mm;/s);
+  assert.match(css, /\.print-page-header\s*\{[^}]*justify-content:\s*center;/s);
+  assert.match(css, /\.print-page-header img\s*\{[^}]*width:\s*28px;/s);
+});
+
 test('defines zero-margin Letter pages with in-flow footers', async () => {
   const css = await readFile(join(root, 'styles.css'), 'utf8');
 
   assert.match(css, /\.print-menu\s*\{\s*display:\s*none;\s*\}/);
   assert.match(css, /@page\s*\{[^}]*size:\s*Letter;[^}]*margin:\s*0;/s);
-  assert.match(css, /\.print-page\s*\{[^}]*width:\s*8\.5in;[^}]*height:\s*11in;[^}]*grid-template-rows:\s*1fr 14mm;/s);
+  assert.match(css, /\.print-page\s*\{[^}]*width:\s*8\.5in;[^}]*height:\s*11in;[^}]*grid-template-rows:\s*auto 1fr 14mm;/s);
   assert.match(css, /\.print-page-footer\s*\{[^}]*position:\s*static;/s);
   assert.doesNotMatch(css, /@media print[\s\S]*?footer\s*\{[^}]*position:\s*fixed;/);
 });

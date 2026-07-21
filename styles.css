@@ -138,7 +138,7 @@ footer p { margin: 1rem 0 0; font: 600 clamp(2.2rem, 5vw, 4rem) var(--display); 
     width: 8.5in;
     height: 11in;
     display: grid;
-    grid-template-rows: 1fr 14mm;
+    grid-template-rows: auto 1fr 14mm;
     overflow: hidden;
     break-after: page;
     background: var(--paper);
@@ -157,6 +157,18 @@ footer p { margin: 1rem 0 0; font: 600 clamp(2.2rem, 5vw, 4rem) var(--display); 
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15mm;
+  }
+
+  .print-page-header {
+    padding: 15mm 15mm 4mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .print-page-header img {
+    width: 28px;
+    height: auto;
   }
 
   .print-column {
