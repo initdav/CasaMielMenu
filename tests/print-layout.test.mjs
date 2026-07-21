@@ -125,9 +125,9 @@ test('keeps unique IDs on the interactive menu sections', () => {
   });
 });
 
-test('renders a centered header with house mark on each print page', () => {
+test('renders a centered header with house mark and wordmark on each print page', () => {
   assert.equal((pageHtml.match(/class="print-page-header"/g) || []).length, 2);
-  assert.equal((pageHtml.match(/class="print-page-header">\s*<img src="assets\/house-mark.svg"/g) || []).length, 2);
+  assert.equal((pageHtml.match(/class="print-page-header">\s*<img src="assets\/house-mark.svg"[^>]*>\s*<div class="print-page-wordmark">/g) || []).length, 2);
 });
 
 test('defines print page header with centered layout', async () => {
@@ -136,7 +136,9 @@ test('defines print page header with centered layout', async () => {
   assert.match(css, /\.print-page\s*\{[^}]*grid-template-rows:\s*auto 1fr 14mm;/s);
   assert.match(css, /\.print-page-header\s*\{[^}]*padding:\s*15mm 15mm 4mm;/s);
   assert.match(css, /\.print-page-header\s*\{[^}]*justify-content:\s*center;/s);
-  assert.match(css, /\.print-page-header img\s*\{[^}]*width:\s*28px;/s);
+  assert.match(css, /\.print-page-header img\s*\{[^}]*width:\s*48px;/s);
+  assert.match(css, /\.print-page-wordmark\s*\{[^}]*font:\s*1\.4rem var\(--display\);/s);
+  assert.match(css, /\.print-page-wordmark\s*\{[^}]*white-space:\s*pre-line;/s);
 });
 
 test('defines zero-margin Letter pages with in-flow footers', async () => {

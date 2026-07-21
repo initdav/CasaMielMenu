@@ -164,11 +164,18 @@ footer p { margin: 1rem 0 0; font: 600 clamp(2.2rem, 5vw, 4rem) var(--display); 
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 0.6rem;
   }
 
   .print-page-header img {
-    width: 28px;
+    width: 48px;
     height: auto;
+  }
+
+  .print-page-wordmark {
+    font: 1.4rem var(--display);
+    line-height: 1;
+    white-space: pre-line;
   }
 
   .print-column {

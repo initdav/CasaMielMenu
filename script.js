@@ -87,7 +87,10 @@ function createPrintHeader() {
   const mark = document.createElement('img');
   mark.src = 'assets/house-mark.svg';
   mark.alt = '';
-  header.append(mark);
+  const wordmark = document.createElement('div');
+  wordmark.className = 'print-page-wordmark';
+  wordmark.textContent = 'Casa\nMiel';
+  header.append(mark, wordmark);
   return header;
 }
 
