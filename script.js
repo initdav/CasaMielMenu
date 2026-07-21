@@ -81,6 +81,16 @@ function createMenuSection(category, { print = false } = {}) {
   return section;
 }
 
+function createPrintHeader() {
+  const header = document.createElement('header');
+  header.className = 'print-page-header';
+  const mark = document.createElement('img');
+  mark.src = 'assets/house-mark.svg';
+  mark.alt = '';
+  header.append(mark);
+  return header;
+}
+
 function createPrintFooter() {
   const footer = document.createElement('footer');
   footer.className = 'print-page-footer';
@@ -115,7 +125,7 @@ function renderPrintMenu(categories) {
       content.append(column);
     });
 
-    page.append(content, createPrintFooter());
+    page.append(createPrintHeader(), content, createPrintFooter());
     fragment.append(page);
   });
 
