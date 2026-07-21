@@ -97,9 +97,9 @@ function createPrintHeader() {
 function createPrintFooter() {
   const footer = document.createElement('footer');
   footer.className = 'print-page-footer';
-  const mark = document.createElement('img');
-  mark.src = 'assets/house-mark.svg';
-  mark.alt = '';
+  const mark = document.createElement('span');
+  mark.className = 'footer-mark';
+  mark.setAttribute('aria-hidden', 'true');
   const message = document.createElement('p');
   message.textContent = 'Qué bueno tenerte en casa';
   footer.append(mark, message);

@@ -252,9 +252,12 @@ footer p { margin: 1rem 0 0; font: 600 clamp(2.2rem, 5vw, 4rem) var(--display); 
     -webkit-print-color-adjust: exact;
   }
 
-  .print-page-footer img {
+  .print-page-footer .footer-mark {
     width: 1.1rem;
-    filter: invert(92%) sepia(23%) saturate(592%) hue-rotate(353deg) brightness(103%);
+    aspect-ratio: 237 / 264;
+    background: #E1D5BF;
+    -webkit-mask: url("assets/house-mark.svg") center / contain no-repeat;
+    mask: url("assets/house-mark.svg") center / contain no-repeat;
   }
 
   .print-page-footer p {
