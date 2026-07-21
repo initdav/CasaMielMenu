@@ -84,14 +84,32 @@ function createMenuSection(category, { print = false } = {}) {
 function createPrintHeader() {
   const header = document.createElement('header');
   header.className = 'print-page-header';
-  const mark = document.createElement('img');
-  mark.src = 'assets/house-mark.svg';
-  mark.alt = '';
-  const wordmark = document.createElement('div');
-  wordmark.className = 'print-page-wordmark';
-  wordmark.textContent = 'Casa\nMiel';
+  const mark = createSvgLogo(
+    'print-page-mark',
+    '0 0 237 264',
+    '#brand-house-mark'
+  );
+  const wordmark = createSvgLogo(
+    'print-page-wordmark',
+    '0 0 1364 816',
+    '#brand-wordmark'
+  );
   header.append(mark, wordmark);
   return header;
+}
+
+function createSvgLogo(className, viewBox, href) {
+  const svgNamespace = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNamespace, 'svg');
+  svg.setAttribute('class', className);
+  svg.setAttribute('viewBox', viewBox);
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+
+  const use = document.createElementNS(svgNamespace, 'use');
+  use.setAttribute('href', href);
+  svg.append(use);
+  return svg;
 }
 
 function createPrintFooter() {
