@@ -1,0 +1,19 @@
+:root {
+  --casa-olive: #7b8149;
+  --casa-honey: #bf8412;
+  --casa-cream: #f2dc99;
+  --casa-oat: #e1d5bf;
+  --casa-espresso: #392010;
+  --casa-font-heading: "Gruppo", cursive;
+  --casa-font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --color-casa-olive: var(--casa-olive);
+  --color-casa-honey: var(--casa-honey);
+  --color-casa-cream: var(--casa-cream);
+  --color-casa-oat: var(--casa-oat);
+  --color-casa-espresso: var(--casa-espresso);
+  --font-heading: var(--casa-font-heading);
+  --font-sans: var(--casa-font-body);
+}

@@ -1,15 +1,26 @@
 @import "tailwindcss" source(".");
+@import "./styles/tokens.css";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+html {
+  background: var(--casa-oat);
+  color: var(--casa-espresso);
 }
 
-html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: inherit;
+  color: inherit;
+  font-family: var(--casa-font-body);
+  font-size: 16px;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--casa-font-heading);
 }
