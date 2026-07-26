@@ -2,8 +2,15 @@
 @import "./styles/tokens.css";
 
 html {
+  scroll-behavior: smooth;
   background: var(--casa-oat);
   color: var(--casa-espresso);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
