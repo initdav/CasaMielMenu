@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "casa-miel-c3-setup",
+	"name": "casa-miel-menu",
 	"compatibility_date": "2026-07-26",
 	"main": "./workers/app.ts",
 	"vars": {
