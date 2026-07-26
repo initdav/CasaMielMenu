@@ -1,79 +1,76 @@
-# Welcome to React Router!
+# Casa Miel Menu
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Casa Miel's digital menu is a warm, focused home for specialty coffee and the
+pastries that belong beside it. This project is the foundation for an
+easy-to-browse menu that feels as considered as the counter experience.
 
-## Features
+## Visual language
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+The interface begins with the tones that define Casa Miel:
 
-## Getting Started
+| Token | Color | Role |
+| --- | --- | --- |
+| Olive | `#7B8149` | Natural accent |
+| Honey | `#BF8412` | Warm highlight |
+| Cream | `#F2DC99` | Light supporting surface |
+| Oat | `#E1D5BF` | Default page background |
+| Espresso | `#392010` | Default text and foreground |
 
-### Installation
+Headings use [Gruppo](https://fonts.google.com/specimen/Gruppo). Body copy uses
+[DM Sans](https://fonts.google.com/specimen/DM+Sans) at `16px`. Shared color and
+typography values live in `app/styles/tokens.css`.
 
-Install the dependencies:
+## Stack
 
-```bash
-npm install
-```
+- React Router and React
+- TypeScript
+- Tailwind CSS
+- Cloudflare Workers and Wrangler
+- pnpm
 
-### Development
+## Getting started
 
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Previewing the Production Build
-
-Preview the production build locally:
+Install dependencies:
 
 ```bash
-npm run preview
+pnpm install
 ```
 
-## Building for Production
+Start the development server:
+
+```bash
+pnpm dev
+```
+
+The app is available at `http://localhost:5173`.
+
+## Quality checks
+
+Check generated types and TypeScript:
+
+```bash
+pnpm typecheck
+```
 
 Create a production build:
 
 ```bash
-npm run build
+pnpm build
+```
+
+Preview that build locally:
+
+```bash
+pnpm preview
 ```
 
 ## Deployment
 
-Deployment is done using the Wrangler CLI.
+Deploy the Worker through Wrangler:
 
-To build and deploy directly to production:
-
-```sh
-npm run deploy
+```bash
+pnpm deploy
 ```
 
-To deploy a preview URL:
-
-```sh
-npx wrangler versions upload
-```
-
-You can then promote a version to production after verification or roll it out progressively.
-
-```sh
-npx wrangler versions deploy
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+The menu interface and menu content are still to come; this repository now
+provides the visual and technical foundation for building them consistently.
