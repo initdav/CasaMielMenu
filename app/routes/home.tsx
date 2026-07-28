@@ -28,6 +28,11 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-16 sm:px-8 lg:px-12">
           <div className="max-w-2xl">
+            <img
+              src="/casa-miel-logo.svg"
+              alt="Casa Miel"
+              className="mb-6 h-auto w-[120px] sm:w-[140px]"
+            />
             <p className="mb-3 font-medium text-casa-cream">
               Café y experiencias
             </p>
