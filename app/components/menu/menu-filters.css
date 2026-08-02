@@ -1,0 +1,24 @@
+.menu-category-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.menu-category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-category-scroll-control {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.menu-category-scroll-control--left {
+  background: linear-gradient(to right, var(--casa-oat) 28%, transparent);
+  padding-right: 0.5rem;
+}
+
+.menu-category-scroll-control--right {
+  background: linear-gradient(to left, var(--casa-oat) 28%, transparent);
+  padding-left: 0.5rem;
+}

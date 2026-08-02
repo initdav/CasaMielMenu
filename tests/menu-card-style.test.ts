@@ -18,6 +18,10 @@ const filterSource = await readFile(
   new URL("../app/components/menu/menu-filters.tsx", import.meta.url),
   "utf8",
 );
+const filterStylesSource = await readFile(
+  new URL("../app/components/menu/menu-filters.css", import.meta.url),
+  "utf8",
+);
 const appCssSource = await readFile(
   new URL("../app/app.css", import.meta.url),
   "utf8",
@@ -75,4 +79,25 @@ test("renders category controls without menu search", () => {
   assert.doesNotMatch(filterSource, /menu-search/);
   assert.doesNotMatch(filterSource, /onQueryChange/);
   assert.doesNotMatch(filterSource, /query:/);
+});
+
+test("renders conditional category scroll controls without a visible scrollbar", () => {
+  assert.match(filterSource, /getCategoryScrollAvailability/);
+  assert.match(filterSource, /useRef/);
+  assert.match(filterSource, /ResizeObserver/);
+  assert.match(filterSource, /canScrollLeft/);
+  assert.match(filterSource, /canScrollRight/);
+  assert.match(filterSource, /aria-label="Desplazar categorías a la izquierda"/);
+  assert.match(filterSource, /aria-label="Desplazar categorías a la derecha"/);
+  assert.match(filterSource, /hover:bg-casa-espresso\/20/);
+  assert.match(filterStylesSource, /scrollbar-width:\s*none/);
+  assert.match(filterStylesSource, /::-webkit-scrollbar/);
+  assert.match(
+    filterStylesSource,
+    /linear-gradient\(to right, var\(--casa-oat\)/,
+  );
+  assert.match(
+    filterStylesSource,
+    /linear-gradient\(to left, var\(--casa-oat\)/,
+  );
 });
