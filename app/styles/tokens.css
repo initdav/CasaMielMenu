@@ -1,10 +1,16 @@
+@font-face {
+  font-family: "Astonpoliz";
+  src: url("/Astonpoliz.ttf") format("truetype");
+  font-display: swap;
+}
+
 :root {
   --casa-olive: #7b8149;
   --casa-honey: #bf8412;
   --casa-cream: #f2dc99;
   --casa-oat: #e1d5bf;
   --casa-espresso: #392010;
-  --casa-font-heading: "Gruppo", cursive;
+  --casa-font-heading: "Astonpoliz", cursive;
   --casa-font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
