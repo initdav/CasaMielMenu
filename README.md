@@ -16,9 +16,9 @@ The interface begins with the tones that define Casa Miel:
 | Oat | `#E1D5BF` | Default page background |
 | Espresso | `#392010` | Default text and foreground |
 
-Headings use [Gruppo](https://fonts.google.com/specimen/Gruppo). Body copy uses
-[DM Sans](https://fonts.google.com/specimen/DM+Sans) at `16px`. Shared color and
-typography values live in `app/styles/tokens.css`.
+Headings use Astonpoliz, self-hosted from `public/Astonpoliz.ttf`. Body copy
+uses [DM Sans](https://fonts.google.com/specimen/DM+Sans) at `16px`. Shared
+color and typography values live in `app/styles/tokens.css`.
 
 ## Stack
 

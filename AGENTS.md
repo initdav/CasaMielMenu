@@ -21,7 +21,7 @@ application uses React Router, TypeScript, Tailwind CSS, and Cloudflare Workers.
   tokens for utility classes. Do not repeat brand hex values in components.
 - Use Oat (`#E1D5BF`) as the default page background and Espresso (`#392010`) as
   the default foreground.
-- Use Gruppo for headings and DM Sans at `16px` for body copy.
+- Use Astonpoliz for headings and DM Sans at `16px` for body copy.
 - Keep global document rules in `app/app.css`; keep component-specific styles
   close to the component that needs them.
 
