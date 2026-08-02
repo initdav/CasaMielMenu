@@ -48,42 +48,20 @@ test("keeps product variants as separate records", () => {
   );
 });
 
-test("filters by title, description, category, and selected category", () => {
+test("filters only by the selected category", () => {
   assert.equal(
-    filterMenuItems({
-      items: menuItems,
-      categories: menuCategories,
-      query: "cold brew",
-      categoryId: "all",
-    }).length,
-    3,
+    filterMenuItems({ items: menuItems, categoryId: "all" }).length,
+    42,
   );
   assert.equal(
-    filterMenuItems({
-      items: menuItems,
-      categories: menuCategories,
-      query: "FRÍAS",
-      categoryId: "all",
-    }).length,
-    13,
-  );
-  assert.equal(
-    filterMenuItems({
-      items: menuItems,
-      categories: menuCategories,
-      query: "",
-      categoryId: "frias-cafe",
-    }).length,
+    filterMenuItems({ items: menuItems, categoryId: "frias-cafe" }).length,
     8,
   );
-  assert.equal(
-    filterMenuItems({
-      items: menuItems,
-      categories: menuCategories,
-      query: "not-a-menu-item",
-      categoryId: "all",
-    }).length,
-    0,
+  assert.deepEqual(
+    filterMenuItems({ items: menuItems, categoryId: "dulces" }).map(
+      (item) => item.slug,
+    ),
+    ["croissant-de-almendras", "porcion-de-torta"],
   );
 });
 

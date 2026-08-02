@@ -3,32 +3,17 @@ import type { MenuFilterCategory } from "../../lib/menu-filter";
 
 type MenuFiltersProps = {
   categories: readonly MenuCategory[];
-  query: string;
   selectedCategoryId: MenuFilterCategory;
-  onQueryChange: (query: string) => void;
   onCategoryChange: (categoryId: MenuFilterCategory) => void;
 };
 
 export function MenuFilters({
   categories,
-  query,
   selectedCategoryId,
-  onQueryChange,
   onCategoryChange,
 }: MenuFiltersProps) {
   return (
-    <div className="space-y-5">
-      <label htmlFor="menu-search" className="sr-only">
-        Buscar en el menú
-      </label>
-      <input
-        id="menu-search"
-        type="search"
-        value={query}
-        onChange={(event) => onQueryChange(event.target.value)}
-        placeholder="Buscar por nombre o antojo"
-        className="w-full rounded-full border border-casa-espresso/20 bg-transparent px-5 py-3 text-casa-espresso outline-none focus-visible:border-casa-honey focus-visible:ring-2 focus-visible:ring-casa-honey"
-      />
+    <div>
       <nav
         aria-label="Categorías del menú"
         className="flex gap-2 overflow-x-auto pb-2"

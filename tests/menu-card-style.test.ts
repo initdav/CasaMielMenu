@@ -70,3 +70,9 @@ test("uses pointer cursors for category buttons and 16px body text", () => {
   assert.match(appCssSource, /font-size: 16px/);
   assert.doesNotMatch(appCssSource, /font-size: 20px/);
 });
+
+test("renders category controls without menu search", () => {
+  assert.doesNotMatch(filterSource, /menu-search/);
+  assert.doesNotMatch(filterSource, /onQueryChange/);
+  assert.doesNotMatch(filterSource, /query:/);
+});
