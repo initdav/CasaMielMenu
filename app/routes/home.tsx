@@ -1,4 +1,5 @@
 import type { Route } from "./+types/home";
+import { MenuExplorer } from "../components/menu/menu-explorer";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -88,6 +89,10 @@ export default function Home() {
           >
             Nuestro menú
           </h2>
+          <p className="mt-5 max-w-2xl text-casa-espresso/75">
+            Elige una categoría o busca ese antojo que ya tienes en mente.
+          </p>
+          <MenuExplorer />
         </div>
       </section>
     </main>
