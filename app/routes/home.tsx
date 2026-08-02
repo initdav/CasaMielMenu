@@ -23,7 +23,11 @@ export default function Home() {
       >
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-casa-espresso/70"
+          className="absolute inset-0 bg-casa-espresso/55"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-casa-espresso/95 via-casa-espresso/75 to-casa-espresso/40 sm:via-casa-espresso/60 sm:to-casa-espresso/25"
         />
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-16 sm:px-8 lg:px-12">
@@ -31,7 +35,7 @@ export default function Home() {
             <img
               src="/casa-miel-logo.svg"
               alt="Casa Miel"
-              className="mb-6 h-auto w-[120px] sm:w-[140px]"
+              className="mb-6 h-auto w-[50vmin]"
             />
             <p className="mb-3 font-medium text-casa-cream">
               Café y experiencias
