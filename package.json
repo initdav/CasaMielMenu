@@ -8,6 +8,7 @@
 		"typecheck": "wrangler types && react-router typegen && tsc -b",
 		"deploy": "pnpm run build && wrangler deploy",
 		"preview": "pnpm run build && vite preview",
+		"test:menu": "node --test --experimental-strip-types tests/menu-data.test.ts",
 		"cf-typegen": "wrangler types",
 		"postinstall": "wrangler types"
 	},
