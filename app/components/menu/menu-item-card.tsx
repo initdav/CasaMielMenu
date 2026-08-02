@@ -8,17 +8,21 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
   return (
     <article
       data-menu-item-slug={item.slug}
-      className="flex min-h-40 flex-col justify-between rounded-3xl bg-casa-cream p-5 text-casa-espresso"
+      className="group border-b border-dashed border-casa-espresso/25 text-casa-espresso last:border-b-0"
     >
-      <div>
-        <h3 className="text-3xl leading-none">{item.title}</h3>
-        {item.description ? (
-          <p className="mt-3 text-casa-espresso/70">{item.description}</p>
-        ) : null}
+      <div className="flex items-start justify-between gap-4 py-6 first:pt-5 last:pb-5 sm:gap-8">
+        <div className="transition-[translate,color] duration-100 group-hover:translate-x-2 group-hover:text-casa-olive motion-reduce:transition-none">
+          <h4 className="text-xl leading-tight">{item.title}</h4>
+          {item.description ? (
+            <p className="mt-2 text-casa-espresso/65 group-hover:text-casa-olive/70">
+              {item.description}
+            </p>
+          ) : null}
+        </div>
+        <p className="shrink-0 pt-1 text-base font-medium text-current group-hover:text-casa-olive">
+          {formatCurrency(item.price, copCurrencyStrategy)}
+        </p>
       </div>
-      <p className="mt-6 font-medium text-casa-honey">
-        {formatCurrency(item.price, copCurrencyStrategy)}
-      </p>
     </article>
   );
 }

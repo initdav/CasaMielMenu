@@ -27,7 +27,7 @@ export function MenuFilters({
         value={query}
         onChange={(event) => onQueryChange(event.target.value)}
         placeholder="Buscar por nombre o antojo"
-        className="w-full rounded-full border border-casa-espresso/25 bg-casa-cream px-5 py-3 text-casa-espresso outline-none focus-visible:border-casa-honey focus-visible:ring-2 focus-visible:ring-casa-honey"
+        className="w-full rounded-full border border-casa-espresso/20 bg-transparent px-5 py-3 text-casa-espresso outline-none focus-visible:border-casa-honey focus-visible:ring-2 focus-visible:ring-casa-honey"
       />
       <nav
         aria-label="Categorías del menú"
@@ -37,7 +37,7 @@ export function MenuFilters({
           type="button"
           aria-pressed={selectedCategoryId === "all"}
           onClick={() => onCategoryChange("all")}
-          className={`whitespace-nowrap rounded-full px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === "all" ? "bg-casa-espresso text-casa-oat" : "bg-casa-cream text-casa-espresso hover:bg-casa-cream/75"}`}
+          className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === "all" ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:border-casa-espresso/40"}`}
         >
           Todo
         </button>
@@ -47,7 +47,7 @@ export function MenuFilters({
             type="button"
             aria-pressed={selectedCategoryId === category.id}
             onClick={() => onCategoryChange(category.id)}
-            className={`whitespace-nowrap rounded-full px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === category.id ? "bg-casa-espresso text-casa-oat" : "bg-casa-cream text-casa-espresso hover:bg-casa-cream/75"}`}
+            className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === category.id ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:border-casa-espresso/40"}`}
           >
             {category.name}
           </button>

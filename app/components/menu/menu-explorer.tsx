@@ -31,7 +31,7 @@ export function MenuExplorer() {
         onQueryChange={setQuery}
         onCategoryChange={setCategoryId}
       />
-      <MenuGrid items={filteredItems} />
+      <MenuGrid categories={menuCategories} items={filteredItems} />
     </div>
   );
 }

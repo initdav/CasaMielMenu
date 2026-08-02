@@ -85,7 +85,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-7xl">
           <h2
             id="menu-title"
-            className="text-5xl leading-none text-casa-espresso sm:text-6xl"
+            className="text-4xl leading-none text-casa-espresso sm:text-5xl"
           >
             Nuestro menú
           </h2>
