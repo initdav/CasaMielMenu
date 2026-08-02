@@ -10,7 +10,7 @@ export function MenuGrid({ categories, items }: MenuGridProps) {
   if (items.length === 0) {
     return (
       <p role="status" aria-live="polite">
-        No encontramos nada con esa búsqueda. Prueba con otra palabra.
+        No hay productos disponibles en esta categoría.
       </p>
     );
   }

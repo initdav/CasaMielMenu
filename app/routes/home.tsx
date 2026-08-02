@@ -90,7 +90,7 @@ export default function Home() {
             Nuestro menú
           </h2>
           <p className="mt-5 max-w-2xl text-casa-espresso/75">
-            Elige una categoría o busca ese antojo que ya tienes en mente.
+            Elige una categoría para explorar el menú.
           </p>
           <MenuExplorer />
         </div>

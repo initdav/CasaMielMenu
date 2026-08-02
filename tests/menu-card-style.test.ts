@@ -79,25 +79,42 @@ test("renders category controls without menu search", () => {
   assert.doesNotMatch(filterSource, /menu-search/);
   assert.doesNotMatch(filterSource, /onQueryChange/);
   assert.doesNotMatch(filterSource, /query:/);
+  assert.doesNotMatch(homeSource, /busca/i);
+  assert.doesNotMatch(gridSource, /búsqueda|palabra/i);
 });
 
-test("renders conditional category scroll controls without a visible scrollbar", () => {
+test("renders fixed disabled-aware scroll controls with narrow edge fades", () => {
   assert.match(filterSource, /getCategoryScrollAvailability/);
   assert.match(filterSource, /useRef/);
   assert.match(filterSource, /ResizeObserver/);
-  assert.match(filterSource, /canScrollLeft/);
-  assert.match(filterSource, /canScrollRight/);
   assert.match(filterSource, /aria-label="Desplazar categorías a la izquierda"/);
   assert.match(filterSource, /aria-label="Desplazar categorías a la derecha"/);
-  assert.match(filterSource, /hover:bg-casa-espresso\/20/);
+  assert.match(filterSource, /disabled=\{!canScrollLeft\}/);
+  assert.match(filterSource, /disabled=\{!canScrollRight\}/);
+  assert.match(filterSource, /getCategoryScrollTarget/);
+  assert.match(filterSource, /pendingScrollTargetRef/);
+  assert.match(filterSource, /setScrollAvailability\(/);
+  assert.match(filterSource, /menu-category-scroll-control/);
+  assert.match(filterSource, /menu-category-scroll-viewport/);
+  assert.match(filterSource, /menu-category-scroll-fade--left/);
+  assert.match(filterSource, /menu-category-scroll-fade--right/);
+  assert.match(filterSource, /className="flex min-w-0 items-center"/);
+  assert.match(
+    filterSource,
+    /menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto/,
+  );
   assert.match(filterStylesSource, /scrollbar-width:\s*none/);
   assert.match(filterStylesSource, /::-webkit-scrollbar/);
-  assert.match(
-    filterStylesSource,
-    /linear-gradient\(to right, var\(--casa-oat\)/,
-  );
-  assert.match(
-    filterStylesSource,
-    /linear-gradient\(to left, var\(--casa-oat\)/,
-  );
+  assert.match(filterStylesSource, /menu-category-scroll-viewport/);
+  assert.match(filterStylesSource, /menu-category-scroll-fade/);
+  assert.match(filterStylesSource, /menu-category-scroll-control--left/);
+  assert.match(filterStylesSource, /menu-category-scroll-control--right/);
+  assert.match(filterStylesSource, /justify-content:\s*flex-start/);
+  assert.match(filterStylesSource, /justify-content:\s*flex-end/);
+  assert.match(filterStylesSource, /linear-gradient\(to right/);
+  assert.match(filterStylesSource, /linear-gradient\(to left/);
+  assert.match(filterStylesSource, /pointer-events:\s*none/);
+  assert.match(filterStylesSource, /position:\s*absolute/);
+  assert.match(filterStylesSource, /z-index:\s*1/);
+  assert.match(filterSource, /<svg[^>]*viewBox="0 0 16 16"/s);
 });

@@ -8,17 +8,49 @@
 }
 
 .menu-category-scroll-control {
-  align-items: center;
   display: flex;
-  flex: 0 0 auto;
+  width: 3rem;
+  min-width: 3rem;
+  flex-shrink: 0;
+  align-items: center;
 }
 
 .menu-category-scroll-control--left {
-  background: linear-gradient(to right, var(--casa-oat) 28%, transparent);
-  padding-right: 0.5rem;
+  justify-content: flex-start;
 }
 
 .menu-category-scroll-control--right {
-  background: linear-gradient(to left, var(--casa-oat) 28%, transparent);
-  padding-left: 0.5rem;
+  justify-content: flex-end;
+}
+
+.menu-category-scroll-viewport {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+}
+
+.menu-category-scroll-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 2rem;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.menu-category-scroll-fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--casa-oat), transparent);
+}
+
+.menu-category-scroll-fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--casa-oat), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-category-scroll-fade {
+    transition: none;
+  }
 }
