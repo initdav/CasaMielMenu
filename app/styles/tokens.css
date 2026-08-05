@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Astonpoliz";
-  src: url("/Astonpoliz.ttf") format("truetype");
+  src: url("/Astonpoliz.woff2") format("woff2");
   font-display: swap;
 }
 

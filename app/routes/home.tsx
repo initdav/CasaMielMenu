@@ -34,7 +34,7 @@ export default function Home() {
         aria-labelledby="hero-title"
         className="relative isolate flex min-h-svh overflow-hidden bg-casa-honey bg-center bg-repeat"
         style={{
-          backgroundImage: 'url("/hero-mosaic.jpg")',
+          backgroundImage: 'url("/hero-mosaic.webp")',
           backgroundSize: "clamp(30rem, 60vw, 48rem)",
         }}
       >
@@ -56,6 +56,8 @@ export default function Home() {
             <img
               src="/casa-miel-logo.svg"
               alt="Casa Miel"
+              width="2116"
+              height="816"
               className="mb-6 h-auto w-[50vmin]"
             />
             <h1

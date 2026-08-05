@@ -14,6 +14,13 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
   { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+  {
+    rel: "preload",
+    as: "image",
+    href: "/hero-mosaic.webp",
+    imageSizes: "clamp(30rem, 60vw, 48rem)",
+    fetchPriority: "high",
+  },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -22,14 +29,14 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "preload",
-    href: "/Astonpoliz.ttf",
+    href: "/Astonpoliz.woff2",
     as: "font",
-    type: "font/ttf",
+    type: "font/woff2",
     crossOrigin: "anonymous",
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500..700&display=swap",
   },
 ];
 
