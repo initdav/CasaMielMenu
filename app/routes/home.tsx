@@ -38,9 +38,6 @@ export default function Home() {
               alt="Casa Miel"
               className="mb-6 h-auto w-[50vmin]"
             />
-            <p className="mb-3 font-medium text-casa-cream">
-              Café y experiencias
-            </p>
             <h1
               id="hero-title"
               className="mb-7 text-[clamp(4.5rem,8vw,7rem)] leading-[0.76] tracking-[-0.045em] text-casa-oat"
