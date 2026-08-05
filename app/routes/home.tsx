@@ -40,7 +40,7 @@ export default function Home() {
             />
             <h1
               id="hero-title"
-              className="mb-7 text-[clamp(4.5rem,8vw,7rem)] leading-[0.76] tracking-[-0.045em] text-casa-oat"
+              className="mb-7 font-bold text-[clamp(4.5rem,8vw,7rem)] leading-[0.83] tracking-[-0.065em] text-casa-oat"
             >
               Algo rico
               <br />
