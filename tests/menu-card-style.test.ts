@@ -94,20 +94,20 @@ test("renders fixed disabled-aware scroll controls with a scroll-driven edge fad
   assert.match(filterSource, /getCategoryScrollTarget/);
   assert.match(filterSource, /pendingScrollTargetRef/);
   assert.match(filterSource, /setScrollAvailability\(/);
-  assert.match(filterSource, /menu-category-scroll-control/);
+  assert.match(filterSource, /menu-category-scroll/);
   assert.doesNotMatch(filterSource, /menu-category-scroll-viewport/);
   assert.doesNotMatch(filterSource, /menu-category-scroll-fade/);
+  assert.doesNotMatch(filterSource, /menu-category-scroll-control/);
   assert.match(filterSource, /className="flex min-w-0 items-center"/);
   assert.match(
     filterSource,
     /menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto/,
   );
+  assert.match(filterSource, /flex w-12 min-w-12 shrink-0 items-center justify-start/);
+  assert.match(filterSource, /flex w-12 min-w-12 shrink-0 items-center justify-end/);
   assert.match(filterStylesSource, /scrollbar-width:\s*none/);
   assert.match(filterStylesSource, /::-webkit-scrollbar/);
-  assert.match(filterStylesSource, /menu-category-scroll-control--left/);
-  assert.match(filterStylesSource, /menu-category-scroll-control--right/);
-  assert.match(filterStylesSource, /justify-content:\s*flex-start/);
-  assert.match(filterStylesSource, /justify-content:\s*flex-end/);
+  assert.doesNotMatch(filterStylesSource, /menu-category-scroll-control/);
   assert.match(filterStylesSource, /@property/);
   assert.match(filterStylesSource, /@keyframes menu-category-scroll-fade-start/);
   assert.match(filterStylesSource, /@keyframes menu-category-scroll-fade-end/);

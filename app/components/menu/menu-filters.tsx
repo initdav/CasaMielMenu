@@ -127,7 +127,7 @@ export function MenuFilters({
       className="flex min-w-0 items-center"
     >
       {canScrollLeft ? (
-        <div className="menu-category-scroll-control menu-category-scroll-control--left">
+        <div className="flex w-12 min-w-12 shrink-0 items-center justify-start">
           <button
             type="button"
             aria-label="Desplazar categorías a la izquierda"
@@ -164,7 +164,7 @@ export function MenuFilters({
         ))}
       </div>
       {canScrollRight ? (
-        <div className="menu-category-scroll-control menu-category-scroll-control--right">
+        <div className="flex w-12 min-w-12 shrink-0 items-center justify-end">
           <button
             type="button"
             aria-label="Desplazar categorías a la derecha"
