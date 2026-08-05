@@ -23,7 +23,8 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <main>
+    <>
+      <main>
       <section
         aria-labelledby="hero-title"
         className="relative isolate flex min-h-svh overflow-hidden bg-casa-honey bg-center bg-repeat"
@@ -107,5 +108,20 @@ export default function Home() {
         </div>
       </section>
     </main>
+
+    <footer className="bg-casa-olive px-6 py-24 text-center text-casa-oat">
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 237 264"
+        className="mx-auto h-auto w-[3.4rem]"
+      >
+        <use href="/house-mark.svg#house-mark" />
+      </svg>
+      <p className="mt-4 font-heading text-[clamp(2.2rem,5vw,4rem)] font-semibold tracking-[-0.04em]">
+        Qué bueno tenerte en casa
+      </p>
+    </footer>
+    </>
   );
 }
