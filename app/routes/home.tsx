@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import { MenuExplorer } from "../components/menu/menu-explorer";
+import { BackToTop } from "../components/back-to-top";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -122,6 +123,7 @@ export default function Home() {
         Qué bueno tenerte en casa
       </p>
     </footer>
+    <BackToTop />
     </>
   );
 }
