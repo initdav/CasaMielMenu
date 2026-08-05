@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router";
 
 import type { MenuCategory } from "../../data/menu";
 import {
@@ -15,6 +16,13 @@ type MenuFiltersProps = {
 
 const scrollButtonClassName =
   "size-10 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-casa-espresso/20 bg-casa-oat text-casa-espresso transition-colors hover:bg-casa-espresso/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey disabled:cursor-default disabled:opacity-30 disabled:hover:bg-casa-oat motion-reduce:transition-none";
+
+const categoryLinkClassName = (isActive: boolean) =>
+  `cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${
+    isActive
+      ? "border-casa-espresso bg-casa-espresso text-casa-oat"
+      : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"
+  }`;
 
 function CategoryScrollChevron({ direction }: { direction: "left" | "right" }) {
   return (
@@ -41,6 +49,8 @@ export function MenuFilters({ categories }: MenuFiltersProps) {
       canScrollLeft: false,
       canScrollRight: false,
     });
+  const location = useLocation();
+  const selectedCategoryId = location.hash.slice(1);
   const { canScrollLeft, canScrollRight } = scrollAvailability;
 
   useEffect(() => {
@@ -136,15 +146,19 @@ export function MenuFilters({ categories }: MenuFiltersProps) {
         ref={categoryRowRef}
         className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
       >
-        {categories.map((category) => (
-          <a
-            key={category.id}
-            href={`#${category.id}`}
-            className="cursor-pointer whitespace-nowrap rounded-full border border-casa-espresso/20 bg-transparent px-4 py-2 text-base text-casa-espresso transition-colors hover:bg-casa-espresso/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none"
-          >
-            {category.name}
-          </a>
-        ))}
+        {categories.map((category) => {
+          const isActive = selectedCategoryId === category.id;
+          return (
+            <Link
+              key={category.id}
+              to={`#${category.id}`}
+              aria-current={isActive ? "true" : undefined}
+              className={categoryLinkClassName(isActive)}
+            >
+              {category.name}
+            </Link>
+          );
+        })}
       </div>
       {canScrollRight ? (
         <div className="flex w-12 min-w-12 shrink-0 items-center justify-end">
