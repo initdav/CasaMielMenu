@@ -28,7 +28,7 @@ export function MenuGrid({ categories, items }: MenuGridProps) {
         <section
           key={category.id}
           aria-labelledby={`menu-category-${category.id}`}
-          className="grid grid-cols-1 gap-8 border-b border-casa-espresso/20 py-12 first:pt-0 lg:grid-cols-[minmax(15rem,0.7fr)_1.3fr] lg:gap-16 lg:py-16"
+          className="grid grid-cols-1 gap-8 border-b border-casa-espresso/20 py-12 first:pt-0 last:border-b-0 lg:grid-cols-[minmax(15rem,0.7fr)_1.3fr] lg:gap-16 lg:py-16"
         >
           <div className="self-start">
             <h3
