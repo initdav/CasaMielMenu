@@ -8,6 +8,16 @@ export function meta({}: Route.MetaArgs) {
       name: "description",
       content: "Bebidas y sabores preparados para hacer especial cada pausa.",
     },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Casa Miel" },
+    { property: "og:locale", content: "es_CO" },
+    { property: "og:title", content: "Casa Miel — Menú" },
+    {
+      property: "og:description",
+      content: "Bebidas y sabores preparados para hacer especial cada pausa.",
+    },
+    { property: "og:image", content: "/hero-mosaic.jpg" },
+    { name: "twitter:card", content: "summary_large_image" },
   ];
 }
 
@@ -29,6 +39,10 @@ export default function Home() {
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-casa-espresso/95 via-casa-espresso/75 to-casa-espresso/40 sm:via-casa-espresso/60 sm:to-casa-espresso/25"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-casa-espresso/60 via-casa-espresso/20 to-transparent"
         />
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-16 sm:px-8 lg:px-12">
@@ -52,12 +66,12 @@ export default function Home() {
             </p>
             <a
               href="#menu"
-              className="group inline-flex items-center gap-3 rounded-full font-medium text-casa-oat focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-casa-cream"
+              className="group inline-flex items-center gap-3 rounded-full bg-casa-honey px-6 py-3 font-medium text-casa-espresso transition-colors hover:bg-casa-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-casa-cream motion-reduce:transition-none"
             >
               <span>Explorar el menú</span>
               <span
                 aria-hidden="true"
-                className="grid size-[30px] place-items-center rounded-full bg-casa-honey text-casa-oat transition-transform group-hover:translate-y-0.5 motion-reduce:transition-none"
+                className="grid size-[30px] place-items-center rounded-full bg-casa-espresso/15 text-casa-espresso transition-transform group-hover:translate-y-0.5 motion-reduce:transition-none"
               >
                 <svg viewBox="0 0 16 16" className="size-4" fill="none">
                   <path

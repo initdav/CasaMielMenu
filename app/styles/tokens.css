@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Astonpoliz";
   src: url("/Astonpoliz.ttf") format("truetype");
-  font-display: block;
+  font-display: swap;
 }
 
 :root {

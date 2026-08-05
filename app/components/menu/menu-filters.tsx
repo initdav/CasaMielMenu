@@ -126,17 +126,19 @@ export function MenuFilters({
       aria-label="Categorías del menú"
       className="flex min-w-0 items-center"
     >
-      <div className="menu-category-scroll-control menu-category-scroll-control--left">
-        <button
-          type="button"
-          aria-label="Desplazar categorías a la izquierda"
-          disabled={!canScrollLeft}
-          onClick={() => scrollCategories("left")}
-          className={scrollButtonClassName}
-        >
-          <CategoryScrollChevron direction="left" />
-        </button>
-      </div>
+      {canScrollLeft ? (
+        <div className="menu-category-scroll-control menu-category-scroll-control--left">
+          <button
+            type="button"
+            aria-label="Desplazar categorías a la izquierda"
+            disabled={!canScrollLeft}
+            onClick={() => scrollCategories("left")}
+            className={scrollButtonClassName}
+          >
+            <CategoryScrollChevron direction="left" />
+          </button>
+        </div>
+      ) : null}
       <div
         ref={categoryRowRef}
         className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
@@ -161,17 +163,19 @@ export function MenuFilters({
           </button>
         ))}
       </div>
-      <div className="menu-category-scroll-control menu-category-scroll-control--right">
-        <button
-          type="button"
-          aria-label="Desplazar categorías a la derecha"
-          disabled={!canScrollRight}
-          onClick={() => scrollCategories("right")}
-          className={scrollButtonClassName}
-        >
-          <CategoryScrollChevron direction="right" />
-        </button>
-      </div>
+      {canScrollRight ? (
+        <div className="menu-category-scroll-control menu-category-scroll-control--right">
+          <button
+            type="button"
+            aria-label="Desplazar categorías a la derecha"
+            disabled={!canScrollRight}
+            onClick={() => scrollCategories("right")}
+            className={scrollButtonClassName}
+          >
+            <CategoryScrollChevron direction="right" />
+          </button>
+        </div>
+      ) : null}
     </nav>
   );
 }

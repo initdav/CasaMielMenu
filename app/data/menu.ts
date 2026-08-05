@@ -42,7 +42,7 @@ export const menuCategories: MenuCategory[] = [
     name: "Antojos dulces",
     items: [
       { slug: "croissant-de-almendras", title: "Croissant de almendras", price: 13000, category: "dulces" },
-      { slug: "porcion-de-torta", title: "Porcion de torta", price: 12500, category: "dulces" },
+      { slug: "porcion-de-torta", title: "Porción de torta", price: 12500, category: "dulces" },
     ],
   },
   {

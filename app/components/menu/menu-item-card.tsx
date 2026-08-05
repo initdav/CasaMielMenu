@@ -12,9 +12,11 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
     >
       <div className="flex items-start justify-between gap-4 py-6 first:pt-5 last:pb-5 sm:gap-8">
         <div className="transition-[translate,color] duration-100 group-hover:translate-x-2 group-hover:text-casa-olive motion-reduce:transition-none">
-          <h4 className="text-xl leading-tight">{item.title}</h4>
+          <h4 className="font-sans text-xl font-semibold leading-tight">
+            {item.title}
+          </h4>
           {item.description ? (
-            <p className="mt-2 text-casa-espresso/65 group-hover:text-casa-olive/70">
+            <p className="mt-1.5 font-medium text-casa-olive group-hover:text-casa-olive/80">
               {item.description}
             </p>
           ) : null}
