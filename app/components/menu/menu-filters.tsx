@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 
 import type { MenuCategory } from "../../data/menu";
 import {
@@ -12,6 +12,7 @@ import "./menu-filters.css";
 
 type MenuFiltersProps = {
   categories: readonly MenuCategory[];
+  activeCategoryId: string | null;
 };
 
 const scrollButtonClassName =
@@ -41,7 +42,10 @@ function CategoryScrollChevron({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export function MenuFilters({ categories }: MenuFiltersProps) {
+export function MenuFilters({
+  categories,
+  activeCategoryId,
+}: MenuFiltersProps) {
   const categoryRowRef = useRef<HTMLDivElement>(null);
   const pendingScrollTargetRef = useRef<number | null>(null);
   const [scrollAvailability, setScrollAvailability] =
@@ -49,8 +53,6 @@ export function MenuFilters({ categories }: MenuFiltersProps) {
       canScrollLeft: false,
       canScrollRight: false,
     });
-  const location = useLocation();
-  const selectedCategoryId = location.hash.slice(1);
   const { canScrollLeft, canScrollRight } = scrollAvailability;
 
   useEffect(() => {
@@ -147,7 +149,7 @@ export function MenuFilters({ categories }: MenuFiltersProps) {
         className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
       >
         {categories.map((category) => {
-          const isActive = selectedCategoryId === category.id;
+          const isActive = activeCategoryId === category.id;
           return (
             <Link
               key={category.id}
