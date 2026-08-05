@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { menuCategories, menuItems } from "../app/data/menu.ts";
-import { filterMenuItems } from "../app/lib/menu-filter.ts";
 import {
   copCurrencyStrategy,
   createIntlCurrencyStrategy,
@@ -45,23 +44,6 @@ test("keeps product variants as separate records", () => {
       .filter((item) => item.title === "Cold brew")
       .map((item) => [item.description ?? null, item.price]),
     [[null, 12000], ["Frutos rojos", 13000], ["Naranja", 13000]],
-  );
-});
-
-test("filters only by the selected category", () => {
-  assert.equal(
-    filterMenuItems({ items: menuItems, categoryId: "all" }).length,
-    42,
-  );
-  assert.equal(
-    filterMenuItems({ items: menuItems, categoryId: "frias-cafe" }).length,
-    8,
-  );
-  assert.deepEqual(
-    filterMenuItems({ items: menuItems, categoryId: "dulces" }).map(
-      (item) => item.slug,
-    ),
-    ["croissant-de-almendras", "porcion-de-torta"],
   );
 });
 

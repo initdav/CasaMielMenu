@@ -6,14 +6,11 @@ import {
   getCategoryScrollTarget,
   type CategoryScrollAvailability,
 } from "../../lib/category-scroll";
-import type { MenuFilterCategory } from "../../lib/menu-filter";
 
 import "./menu-filters.css";
 
 type MenuFiltersProps = {
   categories: readonly MenuCategory[];
-  selectedCategoryId: MenuFilterCategory;
-  onCategoryChange: (categoryId: MenuFilterCategory) => void;
 };
 
 const scrollButtonClassName =
@@ -36,11 +33,7 @@ function CategoryScrollChevron({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export function MenuFilters({
-  categories,
-  selectedCategoryId,
-  onCategoryChange,
-}: MenuFiltersProps) {
+export function MenuFilters({ categories }: MenuFiltersProps) {
   const categoryRowRef = useRef<HTMLDivElement>(null);
   const pendingScrollTargetRef = useRef<number | null>(null);
   const [scrollAvailability, setScrollAvailability] =
@@ -143,24 +136,14 @@ export function MenuFilters({
         ref={categoryRowRef}
         className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
       >
-        <button
-          type="button"
-          aria-pressed={selectedCategoryId === "all"}
-          onClick={() => onCategoryChange("all")}
-          className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === "all" ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"}`}
-        >
-          Todo
-        </button>
         {categories.map((category) => (
-          <button
+          <a
             key={category.id}
-            type="button"
-            aria-pressed={selectedCategoryId === category.id}
-            onClick={() => onCategoryChange(category.id)}
-            className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === category.id ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"}`}
+            href={`#${category.id}`}
+            className="cursor-pointer whitespace-nowrap rounded-full border border-casa-espresso/20 bg-transparent px-4 py-2 text-base text-casa-espresso transition-colors hover:bg-casa-espresso/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none"
           >
             {category.name}
-          </button>
+          </a>
         ))}
       </div>
       {canScrollRight ? (
