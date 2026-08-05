@@ -1,10 +1,78 @@
+@property --menu-category-scroll-fade-start {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --menu-category-scroll-fade-end {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes menu-category-scroll-fade-start {
+  from {
+    --menu-category-scroll-fade-start: 0px;
+  }
+
+  to {
+    --menu-category-scroll-fade-start: 2rem;
+  }
+}
+
+@keyframes menu-category-scroll-fade-end {
+  from {
+    --menu-category-scroll-fade-end: 2rem;
+  }
+
+  to {
+    --menu-category-scroll-fade-end: 0px;
+  }
+}
+
 .menu-category-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--menu-category-scroll-fade-start),
+    #000 calc(100% - var(--menu-category-scroll-fade-end)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--menu-category-scroll-fade-start),
+    #000 calc(100% - var(--menu-category-scroll-fade-end)),
+    transparent 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .menu-category-scroll::-webkit-scrollbar {
   display: none;
+}
+
+@supports (animation-timeline: scroll(self x)) {
+  .menu-category-scroll {
+    animation:
+      menu-category-scroll-fade-start linear 1ms,
+      menu-category-scroll-fade-end linear 1ms;
+    animation-timeline: scroll(self x), scroll(self x);
+    animation-range:
+      0 96px,
+      calc(100% - 96px) 100%;
+    animation-fill-mode: both, both;
+  }
+}
+
+@supports not (animation-timeline: scroll(self x)) {
+  .menu-category-scroll {
+    --menu-category-scroll-fade-start: 2rem;
+    --menu-category-scroll-fade-end: 2rem;
+  }
 }
 
 .menu-category-scroll-control {
@@ -21,36 +89,4 @@
 
 .menu-category-scroll-control--right {
   justify-content: flex-end;
-}
-
-.menu-category-scroll-viewport {
-  position: relative;
-  min-width: 0;
-  flex: 1;
-}
-
-.menu-category-scroll-fade {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: 2rem;
-  pointer-events: none;
-  transition: opacity 150ms ease;
-}
-
-.menu-category-scroll-fade--left {
-  left: 0;
-  background: linear-gradient(to right, var(--casa-oat), transparent);
-}
-
-.menu-category-scroll-fade--right {
-  right: 0;
-  background: linear-gradient(to left, var(--casa-oat), transparent);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .menu-category-scroll-fade {
-    transition: none;
-  }
 }

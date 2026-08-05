@@ -137,39 +137,29 @@ export function MenuFilters({
           <CategoryScrollChevron direction="left" />
         </button>
       </div>
-      <div className="menu-category-scroll-viewport">
-        <div
-          ref={categoryRowRef}
-          className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
+      <div
+        ref={categoryRowRef}
+        className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
+      >
+        <button
+          type="button"
+          aria-pressed={selectedCategoryId === "all"}
+          onClick={() => onCategoryChange("all")}
+          className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === "all" ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"}`}
         >
+          Todo
+        </button>
+        {categories.map((category) => (
           <button
+            key={category.id}
             type="button"
-            aria-pressed={selectedCategoryId === "all"}
-            onClick={() => onCategoryChange("all")}
-            className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === "all" ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"}`}
+            aria-pressed={selectedCategoryId === category.id}
+            onClick={() => onCategoryChange(category.id)}
+            className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === category.id ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"}`}
           >
-            Todo
+            {category.name}
           </button>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              aria-pressed={selectedCategoryId === category.id}
-              onClick={() => onCategoryChange(category.id)}
-              className={`cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${selectedCategoryId === category.id ? "border-casa-espresso bg-casa-espresso text-casa-oat" : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"}`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-        <span
-          aria-hidden="true"
-          className={`menu-category-scroll-fade menu-category-scroll-fade--left ${canScrollLeft ? "opacity-100" : "opacity-0"}`}
-        />
-        <span
-          aria-hidden="true"
-          className={`menu-category-scroll-fade menu-category-scroll-fade--right ${canScrollRight ? "opacity-100" : "opacity-0"}`}
-        />
+        ))}
       </div>
       <div className="menu-category-scroll-control menu-category-scroll-control--right">
         <button

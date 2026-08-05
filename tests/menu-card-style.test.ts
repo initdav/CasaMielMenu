@@ -83,7 +83,7 @@ test("renders category controls without menu search", () => {
   assert.doesNotMatch(gridSource, /búsqueda|palabra/i);
 });
 
-test("renders fixed disabled-aware scroll controls with narrow edge fades", () => {
+test("renders fixed disabled-aware scroll controls with a scroll-driven edge fade", () => {
   assert.match(filterSource, /getCategoryScrollAvailability/);
   assert.match(filterSource, /useRef/);
   assert.match(filterSource, /ResizeObserver/);
@@ -95,9 +95,8 @@ test("renders fixed disabled-aware scroll controls with narrow edge fades", () =
   assert.match(filterSource, /pendingScrollTargetRef/);
   assert.match(filterSource, /setScrollAvailability\(/);
   assert.match(filterSource, /menu-category-scroll-control/);
-  assert.match(filterSource, /menu-category-scroll-viewport/);
-  assert.match(filterSource, /menu-category-scroll-fade--left/);
-  assert.match(filterSource, /menu-category-scroll-fade--right/);
+  assert.doesNotMatch(filterSource, /menu-category-scroll-viewport/);
+  assert.doesNotMatch(filterSource, /menu-category-scroll-fade/);
   assert.match(filterSource, /className="flex min-w-0 items-center"/);
   assert.match(
     filterSource,
@@ -105,16 +104,18 @@ test("renders fixed disabled-aware scroll controls with narrow edge fades", () =
   );
   assert.match(filterStylesSource, /scrollbar-width:\s*none/);
   assert.match(filterStylesSource, /::-webkit-scrollbar/);
-  assert.match(filterStylesSource, /menu-category-scroll-viewport/);
-  assert.match(filterStylesSource, /menu-category-scroll-fade/);
   assert.match(filterStylesSource, /menu-category-scroll-control--left/);
   assert.match(filterStylesSource, /menu-category-scroll-control--right/);
   assert.match(filterStylesSource, /justify-content:\s*flex-start/);
   assert.match(filterStylesSource, /justify-content:\s*flex-end/);
-  assert.match(filterStylesSource, /linear-gradient\(to right/);
-  assert.match(filterStylesSource, /linear-gradient\(to left/);
-  assert.match(filterStylesSource, /pointer-events:\s*none/);
-  assert.match(filterStylesSource, /position:\s*absolute/);
-  assert.match(filterStylesSource, /z-index:\s*1/);
+  assert.match(filterStylesSource, /@property/);
+  assert.match(filterStylesSource, /@keyframes menu-category-scroll-fade-start/);
+  assert.match(filterStylesSource, /@keyframes menu-category-scroll-fade-end/);
+  assert.match(filterStylesSource, /mask-image:/);
+  assert.match(filterStylesSource, /linear-gradient\(\s*to right/);
+  assert.match(filterStylesSource, /animation-timeline:\s*scroll\(self x\)/);
+  assert.match(filterStylesSource, /animation-fill-mode:\s*both/);
+  assert.match(filterStylesSource, /@supports \(animation-timeline: scroll\(self x\)\)/);
+  assert.match(filterStylesSource, /@supports not \(animation-timeline: scroll\(self x\)\)/);
   assert.match(filterSource, /<svg[^>]*viewBox="0 0 16 16"/s);
 });
