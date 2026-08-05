@@ -2,6 +2,10 @@ import type { Route } from "./+types/home";
 import { MenuExplorer } from "../components/menu/menu-explorer";
 import { BackToTop } from "../components/back-to-top";
 
+export const links: Route.LinksFunction = () => [
+  { rel: "canonical", href: "https://menu.casamiel.co/" },
+];
+
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Casa Miel — Menú" },
