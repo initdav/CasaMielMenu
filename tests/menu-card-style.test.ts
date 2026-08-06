@@ -36,6 +36,21 @@ test("renders editorial category sections in canonical order", () => {
   assert.match(gridSource, /grid-cols-1/);
 });
 
+test("tracks the visible category with a scroll spy and highlights the active pill", () => {
+  assert.match(gridSource, /getActiveCategory/);
+  assert.match(gridSource, /getBoundingClientRect/);
+  assert.match(gridSource, /requestAnimationFrame/);
+  assert.match(gridSource, /addEventListener\("scroll"/);
+  assert.match(gridSource, /data-category-id/);
+  assert.match(gridSource, /onActiveCategoryChange/);
+  assert.doesNotMatch(gridSource, /IntersectionObserver/);
+  assert.doesNotMatch(gridSource, /rootMargin/);
+  assert.match(filterSource, /activeCategoryId/);
+  assert.match(filterSource, /aria-current/);
+  assert.match(filterSource, /type="button"/);
+  assert.match(filterSource, /scrollIntoView/);
+});
+
 test("renders unframed menu rows with the approved hover treatment", () => {
   assert.match(cardSource, /border-b/);
   assert.match(cardSource, /border-dashed/);

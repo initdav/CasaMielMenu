@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
 
 import type { MenuCategory } from "../../data/menu";
 import {
@@ -16,14 +15,13 @@ type MenuFiltersProps = {
 };
 
 const scrollButtonClassName =
-  "size-10 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-casa-espresso/20 bg-casa-oat text-casa-espresso transition-colors hover:bg-casa-espresso/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey disabled:cursor-default disabled:opacity-30 disabled:hover:bg-casa-oat motion-reduce:transition-none";
+  "size-10 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-casa-espresso/20 bg-casa-oat text-casa-espresso transition-colors hover:bg-casa-espresso hover:text-casa-oat focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey disabled:cursor-default disabled:opacity-30 disabled:hover:bg-casa-oat disabled:hover:text-casa-espresso motion-reduce:transition-none";
 
-const categoryLinkClassName = (isActive: boolean) =>
-  `cursor-pointer whitespace-nowrap rounded-full border px-4 py-2 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-casa-honey motion-reduce:transition-none ${
-    isActive
-      ? "border-casa-espresso bg-casa-espresso text-casa-oat"
-      : "border-casa-espresso/20 bg-transparent text-casa-espresso hover:bg-casa-espresso/20"
-  }`;
+const categoryClassName =
+  "whitespace-nowrap rounded-full border border-casa-espresso/20 bg-transparent px-4 py-2 text-base text-casa-espresso transition-colors hover:bg-casa-espresso hover:text-casa-oat motion-reduce:transition-none";
+
+const activeCategoryClassName =
+  "whitespace-nowrap rounded-full border border-casa-espresso bg-casa-espresso px-4 py-2 text-base text-casa-oat transition-colors motion-reduce:transition-none";
 
 function CategoryScrollChevron({ direction }: { direction: "left" | "right" }) {
   return (
@@ -42,12 +40,46 @@ function CategoryScrollChevron({ direction }: { direction: "left" | "right" }) {
   );
 }
 
+function CategoryPill({
+  category,
+  isActive,
+}: {
+  category: MenuCategory;
+  isActive: boolean;
+}) {
+  const pillRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isActive) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    pillRef.current?.scrollIntoView({
+      block: "nearest",
+      inline: "nearest",
+      behavior: reducedMotion ? "auto" : "smooth",
+    });
+  }, [isActive]);
+
+  return (
+    <button
+      ref={pillRef}
+      type="button"
+      aria-current={isActive ? "true" : undefined}
+      className={isActive ? activeCategoryClassName : categoryClassName}
+    >
+      {category.name}
+    </button>
+  );
+}
+
 export function MenuFilters({
   categories,
   activeCategoryId,
 }: MenuFiltersProps) {
   const categoryRowRef = useRef<HTMLDivElement>(null);
-  const activeCategoryLinkRef = useRef<HTMLAnchorElement>(null);
   const pendingScrollTargetRef = useRef<number | null>(null);
   const [scrollAvailability, setScrollAvailability] =
     useState<CategoryScrollAvailability>({
@@ -94,22 +126,6 @@ export function MenuFilters({
       resizeObserver.disconnect();
     };
   }, [categories]);
-
-  useEffect(() => {
-    const activeLink = activeCategoryLinkRef.current;
-    if (!activeLink) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    activeLink.focus({ preventScroll: true });
-    activeLink.scrollIntoView({
-      behavior: reducedMotion ? "auto" : "smooth",
-      block: "nearest",
-      inline: "nearest",
-    });
-  }, [activeCategoryId]);
 
   const scrollCategories = (direction: "left" | "right") => {
     const categoryRow = categoryRowRef.current;
@@ -165,20 +181,13 @@ export function MenuFilters({
         ref={categoryRowRef}
         className="menu-category-scroll flex min-w-0 flex-1 gap-2 overflow-x-auto"
       >
-        {categories.map((category) => {
-          const isActive = activeCategoryId === category.id;
-          return (
-            <Link
-              key={category.id}
-              ref={isActive ? activeCategoryLinkRef : undefined}
-              to={`#${category.id}`}
-              aria-current={isActive ? "true" : undefined}
-              className={categoryLinkClassName(isActive)}
-            >
-              {category.name}
-            </Link>
-          );
-        })}
+        {categories.map((category) => (
+          <CategoryPill
+            key={category.id}
+            category={category}
+            isActive={activeCategoryId === category.id}
+          />
+        ))}
       </div>
       {canScrollRight ? (
         <div className="flex w-12 min-w-12 shrink-0 items-center justify-end">

@@ -1,12 +1,13 @@
+import { useState } from "react";
+
 import { menuCategories, menuItems } from "../../data/menu";
-import { useActiveCategory } from "../../lib/use-active-category";
 import { MenuFilters } from "./menu-filters";
 import { MenuGrid } from "./menu-grid";
 
-const categoryIds = menuCategories.map((category) => category.id);
-
 export function MenuExplorer() {
-  const activeCategoryId = useActiveCategory(categoryIds);
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
+    menuCategories[0]?.id ?? null,
+  );
 
   return (
     <div className="mt-10 space-y-8">
@@ -19,7 +20,11 @@ export function MenuExplorer() {
           activeCategoryId={activeCategoryId}
         />
       </div>
-      <MenuGrid categories={menuCategories} items={menuItems} />
+      <MenuGrid
+        categories={menuCategories}
+        items={menuItems}
+        onActiveCategoryChange={setActiveCategoryId}
+      />
     </div>
   );
 }
