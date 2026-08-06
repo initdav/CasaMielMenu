@@ -47,6 +47,7 @@ export function MenuFilters({
   activeCategoryId,
 }: MenuFiltersProps) {
   const categoryRowRef = useRef<HTMLDivElement>(null);
+  const activeCategoryLinkRef = useRef<HTMLAnchorElement>(null);
   const pendingScrollTargetRef = useRef<number | null>(null);
   const [scrollAvailability, setScrollAvailability] =
     useState<CategoryScrollAvailability>({
@@ -93,6 +94,22 @@ export function MenuFilters({
       resizeObserver.disconnect();
     };
   }, [categories]);
+
+  useEffect(() => {
+    const activeLink = activeCategoryLinkRef.current;
+    if (!activeLink) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    activeLink.focus({ preventScroll: true });
+    activeLink.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "nearest",
+      inline: "nearest",
+    });
+  }, [activeCategoryId]);
 
   const scrollCategories = (direction: "left" | "right") => {
     const categoryRow = categoryRowRef.current;
@@ -153,6 +170,7 @@ export function MenuFilters({
           return (
             <Link
               key={category.id}
+              ref={isActive ? activeCategoryLinkRef : undefined}
               to={`#${category.id}`}
               aria-current={isActive ? "true" : undefined}
               className={categoryLinkClassName(isActive)}
