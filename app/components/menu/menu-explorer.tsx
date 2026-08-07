@@ -5,9 +5,7 @@ import { MenuFilters } from "./menu-filters";
 import { MenuGrid } from "./menu-grid";
 
 export function MenuExplorer() {
-  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
-    menuCategories[0]?.id ?? null,
-  );
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
 
   return (
     <div className="mt-10 space-y-8">
